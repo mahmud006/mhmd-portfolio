@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { chapters } from "@/lib/chapters";
+import HeroTerminal from "@/components/HeroTerminal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -14,11 +15,6 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[100dvh] items-center overflow-hidden border-b border-border pt-16"
     >
-      <div
-        aria-hidden
-        className="clip-notch pointer-events-none absolute right-6 top-24 h-24 w-24 border border-accent/40 bg-accent/[0.06] md:right-16 md:top-32 md:h-40 md:w-40"
-      />
-
       <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-10 px-4 md:grid-cols-5 md:px-8">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 20 }}
@@ -48,6 +44,10 @@ export default function Hero() {
             Start - Origin, 2018
           </a>
         </motion.div>
+
+        <div className="hidden md:col-span-2 md:flex md:items-center md:justify-end">
+          <HeroTerminal />
+        </div>
       </div>
 
       <a

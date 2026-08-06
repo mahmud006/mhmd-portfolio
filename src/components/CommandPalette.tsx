@@ -133,7 +133,10 @@ export default function CommandPalette({
           <Command.Item
             onSelect={() => {
               onOpenChange(false);
-              window.open("/resume.pdf", "_blank");
+              const link = document.createElement("a");
+              link.href = "/resume.pdf";
+              link.download = "";
+              link.click();
             }}
             className="flex cursor-pointer items-center gap-3 px-3 py-2.5 font-mono text-sm text-text data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
           >

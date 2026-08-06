@@ -250,4 +250,14 @@ No layout/typography/motion changes - this step is tokens + one toggle control o
 - [x] Step 5: implement
 - [x] Step 6: light mode (this doc)
 
+## STEP 7 — Hero visual (done)
+
+Explored an animated "figure sitting down, opening a laptop" for the hero's right void. Hand-coded SVG human figure looked bad (proportions, exactly the risk flagged upfront). Researched alternatives (LottieFiles/Rive character packs, generic icon packs - all either clipart-tier or a licensing/dependency decision). Landed on a programmatic, no-art alternative instead: a small typing terminal (`whoami` / `cat role.txt` / `echo $STATUS`), real content, zero character-art risk.
+
+Iterated on accent usage in dark mode - first pass had accent on border + 3 prompts + cursor, read as "too eye-catchy." Cut to a single accent touch (the blinking cursor only), everything else neutral - matches "spend your boldness in one place" discipline.
+
+Built as `src/components/HeroTerminal.tsx`, replaces the old empty accent-shard placeholder in `Hero.tsx`. `hidden md:block` - hidden on mobile, the readable content needs more width than the mobile hero has room for without crowding the headline; flag if you want a mobile treatment later.
+
+One real bug caught in QA: lines were rendering duplicated. React Strict Mode double-invokes effects in dev, and the cancellation flag was a `useRef` shared across both invocations - the second mount's effect reset it, un-cancelling the first (stale) async run, so both ran in parallel. Fixed by making the cancel flag a local closure variable declared inside the effect instead of a ref (the standard fix for this class of bug).
+
 Built and verified in browser (desktop, both themes, chapter split-layout, command palette). One bug found and fixed along the way: the blocking theme-init script (needed to avoid flash-of-wrong-theme) can set `data-theme` before React hydrates, which reads as a hydration mismatch to React since the server always renders `data-theme="dark"`. Fixed with `suppressHydrationWarning` on `<html>` - the standard, documented fix for this exact pattern (same one `next-themes` uses). Also fixed a stray em-dash in the page `<title>` while in `layout.tsx` (missed in the original em-dash sweep).
