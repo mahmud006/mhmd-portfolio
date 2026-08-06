@@ -19,18 +19,32 @@ const chakraPetch = Chakra_Petch({
 });
 
 export const metadata: Metadata = {
-  title: "Mahmudul Hasan — Software Engineer",
+  title: "Mahmudul Hasan - Software Engineer",
   description:
     "Follow my engineering journey: real projects, the problems I solved, and what I learned along the way.",
 };
+
+const themeInitScript = `
+(function () {
+  try {
+    var stored = localStorage.getItem("theme");
+    var theme = stored === "light" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch (e) {}
+})();
+`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${chakraPetch.variable} h-full antialiased`}
-      style={{ colorScheme: "dark" }}
+      data-theme="dark"
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)] font-sans">
         {children}
       </body>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { chapters } from "@/lib/chapters";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const shortLabels: Record<string, string> = {
   origin: "Origin",
@@ -65,6 +66,7 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
         </nav>
 
         <div className="flex shrink-0 items-center gap-3 font-mono text-xs uppercase tracking-[0.1em]">
+          <ThemeToggle />
           <button
             type="button"
             onClick={onOpenPalette}

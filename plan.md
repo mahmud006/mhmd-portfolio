@@ -207,10 +207,47 @@ Not done yet / open for next session:
 - Favicon still the Next.js default - swap for a real mark.
 - No deploy yet (Vercel per brief, not requested this session).
 
+## STEP 6 — Light Mode (planned, not yet built)
+
+Clarified brief: not a literal Valorant clone, just that "sleek/tactical" quality. Dark stays the primary/default identity (confirmed good); light is an added option, not a replacement. So: dual-mode, dark-default, user-toggled - not system-preference-driven (brand insists on one default mode per design-skill 8.C, and the user just confirmed dark is the intended default).
+
+**Toggle mechanism:**
+- Sun/MoonStars icon button in Nav, next to `⌘K` / `CV`.
+- Choice persisted in `localStorage`. Default = dark when nothing stored (not `prefers-color-scheme` - deliberate, dark is the brand default).
+- Applied via `data-theme="dark"|"light"` on `<html>`, set by a blocking inline script in `<head>` before hydration (prevents flash-of-wrong-theme). `color-scheme` CSS property follows the same attribute so native scrollbars/inputs match.
+- Whole-page flip only (Page Theme Lock, ref Section 4.11) - no per-section inversion.
+
+**Token strategy:** everything already runs through the CSS variables from Step 4 (`--bg`, `--text`, `--accent`, etc.), so no component changes needed - just add a light override block plus a small accent re-tune for contrast:
+
+| Token | Dark (current) | Light (new) | Note |
+|---|---|---|---|
+| `--bg` | `#0A0A0C` | `#F5F5F4` | near-white, not pure `#fff` |
+| `--bg-elevated` | `#141518` | `#ECECE9` | artifact slot fill |
+| `--border` | `rgba(255,255,255,.08)` | `rgba(10,10,12,.10)` | |
+| `--border-strong` | `rgba(255,255,255,.16)` | `rgba(10,10,12,.20)` | |
+| `--text` | `#F2F2F0` | `#14151A` | |
+| `--text-dim` | `#9C9CA1` | `#55565C` | ~6:1+ on `--bg` both themes |
+| `--text-ghost` | `--text` @14% | `--text` @10% | |
+| `--accent` | `#FF4A5E` *(was `#E23A4E`)* | `#C6283F` | see contrast note below |
+| `--accent-ink` | `#0A0A0C` | `#F5F5F4` | text color on top of solid `--accent` fill |
+
+Contrast note: the original dark accent (`#E23A4E`) measured ~4.7:1 on `--bg`, technically AA but thin margin. Nudging it to `#FF4A5E` (~6.2:1) buys real margin, same crimson family, not a redesign. The light-mode accent needs to be a deeper shade of the same red (`#C6283F`, ~4.8:1 on light `--bg`) because a bright red that works on near-black fails contrast on near-white - this is normal per-theme brand-color tuning (same hue, different lightness), not two accents.
+
+**Files touched:**
+- `globals.css` - add `:root[data-theme="light"] { ... }` override block, update dark accent values.
+- `layout.tsx` - drop the hardcoded `colorScheme: "dark"` inline style, add the blocking theme-init script.
+- `components/ThemeToggle.tsx` (new) - reads/writes localStorage + `data-theme`, swaps Sun/MoonStars icon.
+- `components/Nav.tsx` - mount `<ThemeToggle />`.
+
+No layout/typography/motion changes - this step is tokens + one toggle control only.
+
 ## Next steps
 
 - [x] Step 1: IA
 - [x] Step 2: wireframe
 - [x] Step 3: type scale
 - [x] Step 4: color system
-- [x] Step 5: implement (this doc)
+- [x] Step 5: implement
+- [x] Step 6: light mode (this doc)
+
+Built and verified in browser (desktop, both themes, chapter split-layout, command palette). One bug found and fixed along the way: the blocking theme-init script (needed to avoid flash-of-wrong-theme) can set `data-theme` before React hydrates, which reads as a hydration mismatch to React since the server always renders `data-theme="dark"`. Fixed with `suppressHydrationWarning` on `<html>` - the standard, documented fix for this exact pattern (same one `next-themes` uses). Also fixed a stray em-dash in the page `<title>` while in `layout.tsx` (missed in the original em-dash sweep).
