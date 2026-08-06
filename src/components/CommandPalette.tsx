@@ -53,7 +53,7 @@ export default function CommandPalette({
       onOpenChange={onOpenChange}
       label="Command palette"
       overlayClassName="fixed inset-0 z-[100] bg-bg/80 backdrop-blur-sm"
-      contentClassName="fixed left-1/2 top-28 z-[101] w-[92vw] max-w-lg -translate-x-1/2 border border-border-strong bg-bg-elevated shadow-none"
+      contentClassName="clip-notch fixed left-1/2 top-28 z-[101] w-[92vw] max-w-lg -translate-x-1/2 border border-border-strong bg-bg-elevated shadow-none"
       shouldFilter
       loop
     >

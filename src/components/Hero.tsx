@@ -45,16 +45,19 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        <div className="hidden md:col-span-2 md:flex md:items-center md:justify-end">
+        <div className="hidden md:col-span-2 md:flex md:items-center md:justify-end md:border-l md:border-border md:pl-16">
           <HeroTerminal />
         </div>
       </div>
 
       <a
         href={`#${first.id}`}
-        className="absolute bottom-8 right-4 font-mono text-xs uppercase tracking-[0.1em] text-text-dim transition-colors duration-150 hover:text-accent md:right-8"
+        className="group absolute bottom-8 right-4 flex items-center gap-1 font-mono text-xs uppercase tracking-[0.1em] text-text-dim transition-colors duration-150 hover:text-accent md:right-8"
       >
-        Ch.{first.index} {first.title} ▸
+        Ch.{first.index} {first.title}
+        <span className="inline-block transition-transform duration-150 group-hover:translate-x-1">
+          ▸
+        </span>
       </a>
     </section>
   );

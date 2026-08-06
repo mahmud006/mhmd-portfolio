@@ -8,7 +8,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 function Field({ label, text }: { label: string; text: string }) {
   return (
     <div>
-      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
+      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-text-dim">
         <span aria-hidden className="h-3 w-[2px] bg-accent" />
         {label}
       </div>
@@ -108,9 +108,12 @@ export default function Chapter({
         {next && (
           <a
             href={`#${next.id}`}
-            className="mt-16 flex items-center justify-end font-mono text-xs uppercase tracking-[0.1em] text-text-dim transition-colors duration-150 hover:text-accent"
+            className="group mt-16 flex items-center justify-end gap-1 font-mono text-xs uppercase tracking-[0.1em] text-text-dim transition-colors duration-150 hover:text-accent"
           >
-            Ch.{next.index} {next.label} ▸
+            Ch.{next.index} {next.label}
+            <span className="inline-block transition-transform duration-150 group-hover:translate-x-1">
+              ▸
+            </span>
           </a>
         )}
       </div>
