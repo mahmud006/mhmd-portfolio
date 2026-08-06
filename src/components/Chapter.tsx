@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import type { Chapter as ChapterData } from "@/lib/chapters";
+import ChapterArtifact from "@/components/ChapterArtifact";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -61,49 +62,27 @@ export default function Chapter({
       className="relative border-b border-border py-24 md:py-32"
     >
       <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-        {chapter.layout === "split" ? (
-          <div
-            className={`flex flex-col gap-10 md:gap-16 ${
-              chapter.align === "right" ? "md:flex-row-reverse" : "md:flex-row"
-            }`}
-          >
-            <motion.div {...reveal} className="md:w-3/5">
-              <Meta chapter={chapter} />
-              <h2 className="mt-4 font-display text-3xl font-semibold uppercase leading-none tracking-tight text-text md:text-4xl lg:text-5xl">
-                {chapter.title}
-              </h2>
-              <Fields chapter={chapter} />
-            </motion.div>
+        <div
+          className={`flex flex-col gap-10 md:gap-16 ${
+            chapter.align === "right" ? "md:flex-row-reverse" : "md:flex-row"
+          }`}
+        >
+          <motion.div {...reveal} className="md:w-3/5">
+            <Meta chapter={chapter} />
+            <h2 className="mt-4 font-display text-3xl font-semibold uppercase leading-none tracking-tight text-text md:text-4xl lg:text-5xl">
+              {chapter.title}
+            </h2>
+            <Fields chapter={chapter} />
+          </motion.div>
 
-            <motion.div
-              {...reveal}
-              transition={{ ...reveal.transition, delay: reduce ? 0 : 0.1 }}
-              className="md:w-2/5"
-            >
-              <div className="clip-notch flex aspect-[4/3] items-center justify-center border border-dashed border-border-strong bg-bg-elevated/40">
-                <span className="font-mono text-xs uppercase tracking-[0.15em] text-text-dim">
-                  Artifact pending
-                </span>
-              </div>
-            </motion.div>
-          </div>
-        ) : (
-          <div className="relative">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -right-2 -top-10 hidden select-none font-mono text-[11rem] font-bold leading-none text-text-ghost md:block lg:text-[15rem]"
-            >
-              {chapter.index}
-            </span>
-            <motion.div {...reveal} className="relative max-w-3xl">
-              <Meta chapter={chapter} />
-              <h2 className="mt-4 font-display text-3xl font-semibold uppercase leading-none tracking-tight text-text md:text-4xl lg:text-5xl">
-                {chapter.title}
-              </h2>
-              <Fields chapter={chapter} />
-            </motion.div>
-          </div>
-        )}
+          <motion.div
+            {...reveal}
+            transition={{ ...reveal.transition, delay: reduce ? 0 : 0.1 }}
+            className="md:w-2/5"
+          >
+            <ChapterArtifact artifact={chapter.artifact} />
+          </motion.div>
+        </div>
 
         {next && (
           <a

@@ -241,6 +241,20 @@ Contrast note: the original dark accent (`#E23A4E`) measured ~4.7:1 on `--bg`, t
 
 No layout/typography/motion changes - this step is tokens + one toggle control only.
 
+## STEP 8 — Real chapter artifacts (done)
+
+Replaced every "Artifact pending" placeholder with real content, no fabricated business metrics. Two reusable families, built once, reused across all 6 chapters:
+- **Terminal** (compile/run/verdict or server logs): Origin, Internship, RAG.
+- **Code/diff** (small real-pattern snippet or before/after): Railway, Recycling, Healthcare.
+
+New `--success` token (separate from the brand accent - semantic status color, not a second accent) for the "Accepted"/"PASS" verdict lines.
+
+`layout: "full"` chapters (Origin, Railway) now show their artifact full-width below the fields instead of no artifact at all, since real content exists now (the original "full = no artifact" call was specifically to avoid 6x identical placeholder boxes - that reason no longer applies, but the full/split layout alternation itself stays, since that's what avoids the "same split pattern 4-6x in a row" repetition problem flagged in review).
+
+Data lives in `src/lib/chapters.ts` (`ChapterArtifact` type, per-chapter `artifact` field). Rendered by `src/components/ChapterArtifact.tsx`, one component for both families (switches on line `kind`).
+
+Verified in browser, both themes, all 6 chapters, no console errors.
+
 ## Next steps
 
 - [x] Step 1: IA

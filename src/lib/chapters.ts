@@ -1,3 +1,17 @@
+export type ArtifactLine =
+  | { kind: "prompt"; text: string }
+  | { kind: "out"; text: string }
+  | { kind: "success"; text: string }
+  | { kind: "code"; text: string }
+  | { kind: "rm"; text: string }
+  | { kind: "add"; text: string };
+
+export type ChapterArtifact = {
+  type: "terminal" | "code";
+  title: string;
+  lines: ArtifactLine[];
+};
+
 export type Chapter = {
   id: string;
   index: string;
@@ -9,13 +23,13 @@ export type Chapter = {
   built: string;
   lesson: string;
   align: "left" | "right";
-  layout: "full" | "split";
+  artifact: ChapterArtifact;
 };
 
 export const chapters: Chapter[] = [
   {
     id: "origin",
-    index: "01",
+    index: "00",
     dateRange: "2018 - 2022",
     org: "IIUC, Chittagong",
     title: "Origin",
@@ -26,11 +40,24 @@ export const chapters: Chapter[] = [
       "Years of C and C++ practice on Codeforces and LeetCode. Reached ICPC Dhaka Regional 2020, placing 341st of 1324 teams.",
     lesson: "Problem-solving is a trainable skill, not a talent you either have or don't.",
     align: "left",
-    layout: "full",
+    artifact: {
+      type: "terminal",
+      title: "solution.cpp",
+      lines: [
+        { kind: "prompt", text: "g++ -O2 solution.cpp -o sol" },
+        { kind: "prompt", text: "./sol < input.txt" },
+        { kind: "success", text: "Accepted" },
+        { kind: "out", text: "" },
+        {
+          kind: "out",
+          text: "judges: codeforces, leetcode, atcoder, hackerrank, uva, beecrowd",
+        },
+      ],
+    },
   },
   {
     id: "internship",
-    index: "02",
+    index: "01",
     dateRange: "Mar 2023 - Aug 2023",
     org: "SELISE, Dhaka - Software Engineer Intern",
     title: "First Internship",
@@ -40,11 +67,19 @@ export const chapters: Chapter[] = [
       "An end-to-end automation suite with WebdriverIO, mentored QA engineers on the practice, and shipped core UI for an internal Next.js app.",
     lesson: "Automation is a team multiplier. It buys everyone's time back, not just your own.",
     align: "right",
-    layout: "split",
+    artifact: {
+      type: "terminal",
+      title: "wdio.conf.js",
+      lines: [
+        { kind: "prompt", text: "wdio run wdio.conf.js" },
+        { kind: "out", text: "Spec: internal-app.e2e.ts" },
+        { kind: "success", text: "PASS" },
+      ],
+    },
   },
   {
     id: "rag",
-    index: "03",
+    index: "02",
     dateRange: "Sep 2023 - Nov 2024",
     org: "SELISE, Dhaka - Associate Software Engineer",
     title: "RAG Chat Application",
@@ -54,11 +89,21 @@ export const chapters: Chapter[] = [
       "A document Q&A service on FastAPI, LangChain, Qdrant, Azure OpenAI, and AWS Bedrock, streamed to an Angular frontend over WebSockets.",
     lesson: "Retrieval quality decides the ceiling. Model choice barely moves it.",
     align: "left",
-    layout: "split",
+    artifact: {
+      type: "terminal",
+      title: "main.py",
+      lines: [
+        { kind: "prompt", text: "uvicorn main:app" },
+        { kind: "out", text: "Application startup complete" },
+        { kind: "out", text: "ws: client connected" },
+        { kind: "out", text: '> query: "what\'s in section 3?"' },
+        { kind: "out", text: "< 4 chunks retrieved" },
+      ],
+    },
   },
   {
     id: "railway",
-    index: "04",
+    index: "03",
     dateRange: "2024 - Present",
     org: "SELISE, Dhaka - Software Engineer",
     title: "Railway Inspection Solution",
@@ -68,11 +113,20 @@ export const chapters: Chapter[] = [
       "Form-intensive UI with React Hook Form, Redux, and TanStack Query, CanvasJS for charts, PDF generation, and a full WebdriverIO end-to-end suite.",
     lesson: "Large forms are an architecture problem first. The UI layer is the easy part.",
     align: "right",
-    layout: "full",
+    artifact: {
+      type: "code",
+      title: "inspection-form.tsx",
+      lines: [
+        { kind: "code", text: "const { fields, append } = useFieldArray({" },
+        { kind: "code", text: '  control,' },
+        { kind: "code", text: '  name: "checkpoints",' },
+        { kind: "code", text: "});" },
+      ],
+    },
   },
   {
     id: "recycling",
-    index: "05",
+    index: "04",
     dateRange: "2024 - Present",
     org: "SELISE, Dhaka - Software Engineer",
     title: "Recycling Management Platform",
@@ -82,11 +136,22 @@ export const chapters: Chapter[] = [
       "A multi-role frontend with MUI, React Hook Form, TanStack Query, and Zustand for state that respects who's logged in.",
     lesson: "Designing role-based state early saves a full rewrite later.",
     align: "left",
-    layout: "split",
+    artifact: {
+      type: "code",
+      title: "store.ts",
+      lines: [
+        { kind: "code", text: 'type Role = "admin" | "collector" | "auditor";' },
+        { kind: "code", text: "" },
+        { kind: "code", text: "const useRoleStore = create<RoleState>((set) => ({" },
+        { kind: "code", text: '  role: "collector",' },
+        { kind: "code", text: "  setRole: (role) => set({ role })," },
+        { kind: "code", text: "}));" },
+      ],
+    },
   },
   {
     id: "healthcare",
-    index: "06",
+    index: "05",
     dateRange: "Dec 2024 - Present",
     org: "SELISE, Dhaka - Software Engineer",
     title: "Healthcare Risk & Incident Management",
@@ -97,6 +162,17 @@ export const chapters: Chapter[] = [
       "Reusable React components migrating enterprise modules off Angular, bridged by TypeScript, RxJS, and Angular Material where the two still meet.",
     lesson: "Incremental migration beats a rewrite when the system has to stay live.",
     align: "right",
-    layout: "split",
+    artifact: {
+      type: "code",
+      title: "incident-summary.tsx",
+      lines: [
+        { kind: "rm", text: '<div *ngIf="incident.isCritical">' },
+        { kind: "rm", text: "  {{ incident.summary }}" },
+        { kind: "rm", text: "</div>" },
+        { kind: "add", text: "{incident.isCritical && (" },
+        { kind: "add", text: "  <div>{incident.summary}</div>" },
+        { kind: "add", text: ")}" },
+      ],
+    },
   },
 ];

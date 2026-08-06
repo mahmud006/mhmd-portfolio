@@ -14,7 +14,7 @@ export default function Home() {
           const upcoming = chapters[i + 1];
           const next = upcoming
             ? { id: upcoming.id, label: upcoming.title, index: upcoming.index }
-            : { id: "now", label: "Now", index: "07" };
+            : { id: "now", label: "Now", index: "06" };
           return <Chapter key={chapter.id} chapter={chapter} next={next} />;
         })}
         <Closing />

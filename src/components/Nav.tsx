@@ -13,10 +13,13 @@ const shortLabels: Record<string, string> = {
   healthcare: "Healthcare",
 };
 
-const navLinks = [
-  ...chapters.map((c) => ({ id: c.id, label: shortLabels[c.id] ?? c.title })),
-  { id: "now", label: "Now" },
-];
+const chapterLinks = chapters.map((c) => ({
+  id: c.id,
+  index: c.index,
+  label: shortLabels[c.id] ?? c.title,
+}));
+
+const navLinks = [...chapterLinks.map((c) => ({ id: c.id, label: c.label })), { id: "now", label: "Now" }];
 
 export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
   const [active, setActive] = useState<string>("hero");
@@ -51,18 +54,59 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
           MH
         </a>
 
-        <nav className="hidden min-w-0 items-center gap-5 overflow-x-auto font-mono text-xs uppercase tracking-[0.1em] md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className={`shrink-0 whitespace-nowrap transition-colors duration-150 ${
-                active === link.id ? "text-accent" : "text-text-dim hover:text-text"
-              }`}
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="hidden min-w-0 items-center gap-1 font-mono text-xs uppercase tracking-[0.1em] md:flex">
+          {chapterLinks.map((link) => {
+            const isActive = active === link.id;
+
+            if (link.index === "00") {
+              return (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  className={`shrink-0 whitespace-nowrap px-2 transition-colors duration-150 ${
+                    isActive ? "text-accent" : "text-text-dim hover:text-text"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            }
+
+            return (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                aria-label={link.label}
+                className="group relative flex h-9 shrink-0 items-center px-2"
+              >
+                <span
+                  className={`transition-colors duration-150 ${
+                    isActive ? "text-accent" : "text-text-dim group-hover:text-text"
+                  }`}
+                >
+                  {isActive ? `[${link.index}]` : link.index}
+                </span>
+                <span
+                  className={`pointer-events-none absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-[10px] tracking-[0.08em] transition-opacity duration-150 ${
+                    isActive
+                      ? "text-accent opacity-100"
+                      : "text-text-dim opacity-0 group-hover:opacity-100"
+                  }`}
+                >
+                  {link.label}
+                </span>
+              </a>
+            );
+          })}
+          <span aria-hidden className="mx-2 h-3 w-px bg-border-strong" />
+          <a
+            href="#now"
+            className={`shrink-0 whitespace-nowrap px-2 transition-colors duration-150 ${
+              active === "now" ? "text-accent" : "text-text-dim hover:text-text"
+            }`}
+          >
+            Now
+          </a>
         </nav>
 
         <div className="flex shrink-0 items-center gap-3 font-mono text-xs uppercase tracking-[0.1em]">
