@@ -11,6 +11,7 @@ import {
   LinkedinLogo,
 } from "@phosphor-icons/react";
 import { chapters } from "@/lib/chapters";
+import { chapterIcons } from "@/lib/chapter-icons";
 
 const EMAIL = "mh.mahmud006@gmail.com";
 const GITHUB_URL = "https://github.com/mahmudul006";
@@ -82,18 +83,22 @@ export default function CommandPalette({
             Start
             <ArrowRight size={14} weight="bold" />
           </Command.Item>
-          {chapters.map((c) => (
-            <Command.Item
-              key={c.id}
-              onSelect={() => jump(c.id)}
-              className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-sm text-text data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
-            >
-              <span>
-                {c.index} / {c.title}
-              </span>
-              <ArrowRight size={14} weight="bold" />
-            </Command.Item>
-          ))}
+          {chapters.map((c) => {
+            const ChapterIcon = chapterIcons[c.id];
+            return (
+              <Command.Item
+                key={c.id}
+                onSelect={() => jump(c.id)}
+                className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-sm text-text data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
+              >
+                <span className="flex items-center gap-2.5">
+                  <ChapterIcon size={14} weight="bold" className="shrink-0" />
+                  {c.index} / {c.title}
+                </span>
+                <ArrowRight size={14} weight="bold" />
+              </Command.Item>
+            );
+          })}
           <Command.Item
             onSelect={() => jump("now")}
             className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-sm text-text data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { chapters } from "@/lib/chapters";
+import { chapterIcons } from "@/lib/chapter-icons";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const shortLabels: Record<string, string> = {
@@ -72,6 +73,8 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
               );
             }
 
+            const ChapterIcon = chapterIcons[link.id];
+
             return (
               <a
                 key={link.id}
@@ -79,18 +82,16 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
                 aria-label={link.label}
                 className="group relative flex h-9 shrink-0 items-center px-2"
               >
-                <span
+                <ChapterIcon
+                  size={15}
+                  weight="bold"
                   className={`transition-colors duration-150 ${
                     isActive ? "text-accent" : "text-text-dim group-hover:text-text"
                   }`}
-                >
-                  {isActive ? `[${link.index}]` : link.index}
-                </span>
+                />
                 <span
-                  className={`pointer-events-none absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-[10px] tracking-[0.08em] transition-opacity duration-150 ${
-                    isActive
-                      ? "text-accent opacity-100"
-                      : "text-text-dim opacity-0 group-hover:opacity-100"
+                  className={`pointer-events-none absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-[10px] tracking-[0.08em] opacity-0 transition-opacity duration-150 group-hover:opacity-100 ${
+                    isActive ? "text-accent" : "text-text-dim"
                   }`}
                 >
                   {link.label}
