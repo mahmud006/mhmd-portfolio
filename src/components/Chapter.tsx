@@ -33,10 +33,9 @@ function Meta({ chapter }: { chapter: ChapterData }) {
 function Fields({ chapter }: { chapter: ChapterData }) {
   return (
     <div className="mt-8 space-y-6">
-      <Field label="Problem" text={chapter.problem} />
-      <Field label="Challenge" text={chapter.challenge} />
-      <Field label="Built" text={chapter.built} />
-      <Field label="Lesson" text={chapter.lesson} />
+      {chapter.context && <Field label="Context" text={chapter.context} />}
+      {chapter.engineered && <Field label="Engineered" text={chapter.engineered} />}
+      {chapter.insight && <Field label="Insight" text={chapter.insight} />}
     </div>
   );
 }

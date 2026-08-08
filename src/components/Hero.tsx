@@ -33,8 +33,8 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 max-w-[46ch] text-base leading-relaxed text-text-dim md:text-lg">
-            Every chapter below is a real project. The problem, the decisions, and what I
-            learned along the way.
+            From competitive programming roots to building AI workflows and enterprise web
+            platforms.
           </p>
 
           <a

@@ -60,11 +60,11 @@ export default function HeroTerminal() {
       aria-hidden
       className="clip-notch pointer-events-none w-80 border border-border-strong bg-bg-elevated lg:w-[26rem]"
     >
-      <div className="flex items-center gap-2 border-b border-border px-4 py-3.5 font-mono text-xs uppercase tracking-[0.12em] text-text-dim">
+      <div className="flex items-center gap-2 border-b border-border px-4 py-3 font-mono text-xs uppercase tracking-[0.12em] text-text-dim">
         <span className="h-1.5 w-1.5 bg-border-strong" />
         whoami.sh
       </div>
-      <div className="px-5 py-6 font-mono text-[15px] leading-[2.1] text-text-dim">
+      <div className="px-5 py-5 font-mono text-sm leading-[1.8] text-text-dim">
         {rendered.map((row, i) => (
           <div key={i}>
             {row.type === "prompt" ? (

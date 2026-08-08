@@ -18,12 +18,11 @@ export type Chapter = {
   dateRange: string;
   org: string;
   title: string;
-  problem: string;
-  challenge: string;
-  built: string;
-  lesson: string;
+  context: string;
+  engineered: string;
+  insight?: string;
   align: "left" | "right";
-  artifact: ChapterArtifact;
+  artifact: ChapterArtifact | ChapterArtifact[];
 };
 
 export const chapters: Chapter[] = [
@@ -31,14 +30,12 @@ export const chapters: Chapter[] = [
     id: "origin",
     index: "00",
     dateRange: "2018 - 2022",
-    org: "IIUC, Chittagong",
+    org: "IIUC — B.Sc. in Computer Science & Engineering",
     title: "Origin",
-    problem: "No formal head start. Just curiosity about how programs actually work.",
-    challenge:
-      "Competitive programming means solving under pressure, with no partial credit for almost-right answers.",
-    built:
-      "Years of C and C++ practice on Codeforces and LeetCode. Reached ICPC Dhaka Regional 2020, placing 341st of 1324 teams.",
-    lesson: "Problem-solving is a trainable skill, not a talent you either have or don't.",
+    context:
+      "Building core computer science fundamentals and algorithmic problem-solving discipline from scratch during university.",
+    engineered:
+      "700+ algorithmic problems solved in C and C++, complemented by hands-on projects in object-oriented design, database fundamentals, and web development basics.",
     align: "left",
     artifact: {
       type: "terminal",
@@ -63,21 +60,33 @@ export const chapters: Chapter[] = [
     dateRange: "Mar 2023 - Aug 2023",
     org: "SELISE, Dhaka - Software Engineer Intern",
     title: "First Internship",
-    problem: "QA coverage was manual-only. Regressions slipped through before every release.",
-    challenge: "Test coverage couldn't keep pace with how fast the product shipped.",
-    built:
-      "An end-to-end automation suite with WebdriverIO, mentored QA engineers on the practice, and shipped core UI for an internal Next.js app.",
-    lesson: "Automation is a team multiplier. It buys everyone's time back, not just your own.",
+    context:
+      "Learning Angular from scratch in an enterprise environment, mastering component architecture, RxJS state management, and team coding standards.",
+    engineered:
+      "Built UI feature modules for production Angular apps, automated a React application with WebdriverIO E2E testing, and mentored the QA team on WebdriverIO automation practices.",
+    insight:
+      "Fast-tracking Angular learning through real feature work and test automation turned initial onboarding into early engineering contribution.",
     align: "right",
-    artifact: {
-      type: "terminal",
-      title: "wdio.conf.js",
-      lines: [
-        { kind: "prompt", text: "wdio run wdio.conf.js" },
-        { kind: "out", text: "Spec: internal-app.e2e.ts" },
-        { kind: "success", text: "PASS" },
-      ],
-    },
+    artifact: [
+      {
+        type: "terminal",
+        title: "ng-serve.log",
+        lines: [
+          { kind: "prompt", text: "ng serve --port 4200" },
+          { kind: "out", text: "✔ Angular Live Development Server listening on localhost:4200" },
+          { kind: "success", text: "✔ Compiled successfully" },
+        ],
+      },
+      {
+        type: "terminal",
+        title: "wdio.conf.js",
+        lines: [
+          { kind: "prompt", text: "wdio run wdio.conf.js" },
+          { kind: "out", text: "Spec: internal-app.e2e.ts" },
+          { kind: "success", text: "PASS" },
+        ],
+      },
+    ],
   },
   {
     id: "rag",
@@ -85,11 +94,12 @@ export const chapters: Chapter[] = [
     dateRange: "Sep 2023 - Nov 2024",
     org: "SELISE, Dhaka - Associate Software Engineer",
     title: "RAG Chat Application",
-    problem: "People needed answers buried inside their own PDFs, not another search box.",
-    challenge: "Retrieval had to stay accurate and fast enough to feel like a real conversation.",
-    built:
-      "A document Q&A service on FastAPI, LangChain, Qdrant, Azure OpenAI, and AWS Bedrock, streamed to an Angular frontend over WebSockets.",
-    lesson: "Retrieval quality decides the ceiling. Model choice barely moves it.",
+    context:
+      "Users needed precise answers buried inside complex PDF documentation, but traditional keyword search was too slow and inaccurate for real-time conversational workflows.",
+    engineered:
+      "Architected a document Q&A service on FastAPI, LangChain, Qdrant vector database, Azure OpenAI, and AWS Bedrock, streaming responses over WebSockets to an Angular frontend.",
+    insight:
+      "In production AI systems, retrieval quality and chunking strategy determine the accuracy ceiling—model choice alone barely moves the needle.",
     align: "left",
     artifact: {
       type: "terminal",
@@ -109,11 +119,12 @@ export const chapters: Chapter[] = [
     dateRange: "2024 - Present",
     org: "SELISE, Dhaka - Software Engineer",
     title: "Railway Inspection Solution",
-    problem: "Field inspectors needed reliable, form-heavy tooling that held up under real conditions.",
-    challenge: "Every inspection meant long forms, live charts, and a PDF report that had to be right.",
-    built:
-      "Form-intensive UI with React Hook Form, Redux, and TanStack Query, CanvasJS for charts, PDF generation, and a full WebdriverIO end-to-end suite.",
-    lesson: "Large forms are an architecture problem first. The UI layer is the easy part.",
+    context:
+      "Field inspectors needed reliable, offline-resilient, form-heavy tooling to record complex checkpoint data, generate dynamic charts, and issue accurate PDF reports under strict field conditions.",
+    engineered:
+      "Built a high-performance form UI using React Hook Form, Redux, and TanStack Query, integrated CanvasJS for live visual charts, authored client-side PDF export routines, and backed it with full WebdriverIO E2E coverage.",
+    insight:
+      "Form-heavy UI is an architectural problem first—managing complex reactive state, dynamic validation rules, and caching boundaries matters far more than visual styling.",
     align: "right",
     artifact: {
       type: "code",
@@ -132,11 +143,12 @@ export const chapters: Chapter[] = [
     dateRange: "2024 - Present",
     org: "SELISE, Dhaka - Software Engineer",
     title: "Recycling Management Platform",
-    problem: "Different roles needed different views of the same system, with different permissions.",
-    challenge: "One codebase had to serve every role without turning into a maze of conditionals.",
-    built:
-      "A multi-role frontend with MUI, React Hook Form, TanStack Query, and Zustand for state that respects who's logged in.",
-    lesson: "Designing role-based state early saves a full rewrite later.",
+    context:
+      "Administrators, collectors, and auditors required distinct operational interfaces with complex permission matrices within a single shared web application.",
+    engineered:
+      "Designed a multi-role frontend using Material UI, React Hook Form, TanStack Query, and Zustand to enforce fine-grained role-based view visibility and state boundaries cleanly across the application.",
+    insight:
+      "Structuring role-based authorization state cleanly at the root architecture layer prevents exponential complexity and tech debt as permission requirements evolve.",
     align: "left",
     artifact: {
       type: "code",
@@ -156,25 +168,38 @@ export const chapters: Chapter[] = [
     index: "05",
     dateRange: "Dec 2024 - Present",
     org: "SELISE, Dhaka - Software Engineer",
-    title: "Healthcare Risk & Incident Management",
-    problem:
-      "A live enterprise Angular app needed to modernize without breaking what clinicians already depended on.",
-    challenge: "Angular and React had to coexist correctly while the migration was still in progress.",
-    built:
-      "Reusable React components migrating enterprise modules off Angular, bridged by TypeScript, RxJS, and Angular Material where the two still meet.",
-    lesson: "Incremental migration beats a rewrite when the system has to stay live.",
+    title: "Healthcare Quality & Risk Platform",
+    context:
+      "An enterprise platform combining day-to-day clinical operations with quality and risk management—requiring active feature development in Angular while migrating core modules to React.",
+    engineered:
+      "Shipped production features across both Angular and React modules, bridging hybrid application state and shared UI components with TypeScript and RxJS.",
+    insight:
+      "Deep expertise in both Angular and React allowed seamless feature delivery in a hybrid codebase without breaking live clinical workflows.",
     align: "right",
-    artifact: {
-      type: "code",
-      title: "incident-summary.tsx",
-      lines: [
-        { kind: "rm", text: '<div *ngIf="incident.isCritical">' },
-        { kind: "rm", text: "  {{ incident.summary }}" },
-        { kind: "rm", text: "</div>" },
-        { kind: "add", text: "{incident.isCritical && (" },
-        { kind: "add", text: "  <div>{incident.summary}</div>" },
-        { kind: "add", text: ")}" },
-      ],
-    },
+    artifact: [
+      {
+        type: "code",
+        title: "quality-risk.component.ts",
+        lines: [
+          { kind: "code", text: "@Component({" },
+          { kind: "code", text: "  selector: 'app-quality-risk'," },
+          { kind: "code", text: "  templateUrl: './quality-risk.component.html'," },
+          { kind: "code", text: "})" },
+          { kind: "code", text: "export class QualityRiskComponent implements OnInit {}" },
+        ],
+      },
+      {
+        type: "code",
+        title: "quality-risk.tsx",
+        lines: [
+          { kind: "rm", text: '<div *ngIf="incident.isCriticalRisk">' },
+          { kind: "rm", text: "  {{ incident.summary }}" },
+          { kind: "rm", text: "</div>" },
+          { kind: "add", text: "{incident.isCriticalRisk && (" },
+          { kind: "add", text: "  <div>{incident.summary}</div>" },
+          { kind: "add", text: ")}" },
+        ],
+      },
+    ],
   },
 ];

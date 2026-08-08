@@ -5,12 +5,14 @@ import { EnvelopeSimple, GithubLogo, LinkedinLogo } from "@phosphor-icons/react"
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const EMAIL = "mh.mahmud006@gmail.com";
-const GITHUB_URL = "https://github.com/mahmudul006";
+const GITHUB_PRIMARY = "https://github.com/mahmudul006";
+const GITHUB_SECONDARY = "https://github.com/mahmud006";
 const LINKEDIN_URL = "https://www.linkedin.com/in/mahmudul-hasan-ba6654164/";
 
 const links = [
   { href: `mailto:${EMAIL}`, label: EMAIL, Icon: EnvelopeSimple },
-  { href: GITHUB_URL, label: "GitHub", Icon: GithubLogo },
+  { href: GITHUB_PRIMARY, label: "GitHub (mahmudul006)", Icon: GithubLogo },
+  { href: GITHUB_SECONDARY, label: "GitHub (mahmud006)", Icon: GithubLogo },
   { href: LINKEDIN_URL, label: "LinkedIn", Icon: LinkedinLogo },
 ];
 
@@ -35,7 +37,7 @@ export default function Closing() {
 
           <p className="mt-6 max-w-[52ch] text-base leading-relaxed text-text-dim md:text-lg">
             Still at SELISE, migrating enterprise Angular systems to React and exploring
-            AI-assisted engineering workflows. Always glad to talk shop.
+            AI-assisted engineering workflows. Always open to connect and talk tech.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">

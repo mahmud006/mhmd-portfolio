@@ -4,9 +4,19 @@ export default function ChapterArtifact({
   artifact,
   className = "",
 }: {
-  artifact: ChapterArtifactData;
+  artifact: ChapterArtifactData | ChapterArtifactData[];
   className?: string;
 }) {
+  if (Array.isArray(artifact)) {
+    return (
+      <div className={`space-y-4 ${className}`}>
+        {artifact.map((item, i) => (
+          <ChapterArtifact key={i} artifact={item} />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className={`clip-notch border border-border-strong bg-bg-elevated ${className}`}>
       <div className="flex items-center gap-2 border-b border-border px-4 py-3 font-mono text-[10px] uppercase tracking-[0.12em] text-text-dim">
