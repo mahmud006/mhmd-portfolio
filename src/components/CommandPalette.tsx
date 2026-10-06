@@ -11,7 +11,7 @@ import {
   LinkedinLogo,
   MagnifyingGlass,
 } from "@phosphor-icons/react";
-import { chapters, type Chapter } from "@/lib/chapters";
+import { chapters } from "@/lib/chapters";
 import { chapterIcons } from "@/lib/chapter-icons";
 
 const EMAIL = "mh.mahmud006@gmail.com";
@@ -86,7 +86,7 @@ export default function CommandPalette({
         {/* Left Search List */}
         <Command.List className="w-full md:w-7/12 max-h-[55vh] overflow-y-auto p-2">
           <Command.Empty className="px-3 py-10 text-center font-mono text-xs uppercase tracking-[0.15em] text-text-dim">
-            // No matching results found
+            {"// No matching results found"}
           </Command.Empty>
 
           <Command.Group
@@ -98,10 +98,10 @@ export default function CommandPalette({
               onSelect={() => jump("hero")}
               onFocus={() => setActiveId("hero")}
               onMouseEnter={() => setActiveId("hero")}
-              className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-xs text-text transition-colors data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
+              className="group flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-xs text-text transition-colors data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
             >
               <span className="flex items-center gap-3">
-                <span className="font-bold text-accent data-[selected=true]:text-accent-ink">00</span>
+                <span className="font-bold text-accent group-data-[selected=true]:text-accent-ink">00</span>
                 START / HERO
               </span>
               <ArrowRight size={14} weight="bold" />
@@ -119,10 +119,10 @@ export default function CommandPalette({
                   onSelect={() => jump(c.id)}
                   onFocus={() => setActiveId(c.id)}
                   onMouseEnter={() => setActiveId(c.id)}
-                  className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-xs text-text transition-colors data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
+                  className="group flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-xs text-text transition-colors data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
                 >
                   <span className="flex items-center gap-3 truncate">
-                    <span className="font-bold text-accent data-[selected=true]:text-accent-ink shrink-0">
+                    <span className="font-bold text-accent group-data-[selected=true]:text-accent-ink shrink-0">
                       {c.index}
                     </span>
                     <ChapterIcon size={14} weight="bold" className="shrink-0" />
@@ -138,10 +138,10 @@ export default function CommandPalette({
               onSelect={() => jump("now")}
               onFocus={() => setActiveId("now")}
               onMouseEnter={() => setActiveId("now")}
-              className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-xs text-text transition-colors data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
+              className="group flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 font-mono text-xs text-text transition-colors data-[selected=true]:bg-accent data-[selected=true]:text-accent-ink"
             >
               <span className="flex items-center gap-3">
-                <span className="font-bold text-accent data-[selected=true]:text-accent-ink">06</span>
+                <span className="font-bold text-accent group-data-[selected=true]:text-accent-ink">06</span>
                 NOW / CONTACT
               </span>
               <ArrowRight size={14} weight="bold" />
